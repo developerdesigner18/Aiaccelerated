@@ -1,14 +1,59 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Aiaccelerated React Native App
 
-# Getting Started
+**Aiaccelerated** is a mobile application built with [React Native](https://reactnative.dev) that supports **email/password authentication**, **biometric login**, **user profile management**, and **theme switching**. The project uses **Redux** for state management and **Redux-Saga** for handling async operations.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## Project Overview
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+**Key Features:**
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+* **Email & Password Authentication**: Standard login and registration flow with validation.
+* **Biometric Login**: Fingerprint authentication for quick and secure access.
+* **User Profile**: Displays user details (`First Name`, `Last Name`, `Email`, `Phone`) on the Home screen.
+* **Dark/Light Theme Switching**: Toggle app theme dynamically.
+* **Secure Credential Storage**: User credentials stored using `react-native-keychain`.
+* **Persistent Session**: AsyncStorage maintains user sessions across app restarts.
+
+---
+
+## Prerequisites
+
+Before running the app, ensure the following are installed:
+
+* Node.js v18 or above
+* Yarn or npm
+* Android Studio (for Android)
+* Xcode (for iOS)
+* Android/iOS device or simulator
+* Optional: Device with fingerprint/biometric support
+
+---
+
+## Installation
+
+1. Clone the repository:
+
+```sh
+git clone <YOUR_REPO_URL>
+cd Aiaccelerated
+```
+
+2. Install dependencies:
+
+```sh
+# Using npm
+npm install
+
+# OR using Yarn
+yarn install
+```
+
+---
+
+## Running the App
+
+### 1. Start Metro Bundler
 
 ```sh
 # Using npm
@@ -18,11 +63,9 @@ npm start
 yarn start
 ```
 
-## Step 2: Build and run your app
+### 2. Build & Run
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+#### Android
 
 ```sh
 # Using npm
@@ -32,23 +75,16 @@ npm run android
 yarn android
 ```
 
-### iOS
+#### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+> Ensure CocoaPods dependencies are installed:
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Then run:
 
 ```sh
 # Using npm
@@ -58,40 +94,80 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## App Usage
 
-## Step 3: Modify your app
+1. **Registration & Login**
 
-Now that you have successfully run the app, let's make changes!
+   * Users register with first name, last name, email, phone, and password.
+   * After registration, login with email & password.
+2. **Biometric Login**
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+   * After 5 failed login attempts, the app locks the account.
+   * Fingerprint login automatically fetches user details and navigates to Home.
+3. **Home Screen**
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+   * Shows user profile (first name, last name, email, phone).
+   * Dark/Light theme toggle.
+   * Logout clears session and navigates back to Login.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+---
 
-## Congratulations! :tada:
+## Folder Structure
 
-You've successfully run and modified your React Native App. :partying_face:
+```
+/src
+  /redux           # Redux actions, reducers, types
+  /screens         # Login, Register, Home screens
+  /theme           # Colors, theme utils
+App.tsx
+```
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## State Management
 
-# Troubleshooting
+* **Redux**: Manages authentication and user profile state.
+* **Redux-Saga**: Handles asynchronous API calls.
+* **AsyncStorage**: Stores session data.
+* **Keychain**: Securely stores credentials for biometric login.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
+## Scripts
 
-To learn more about React Native, take a look at the following resources:
+| Command           | Description         |
+| ----------------- | ------------------- |
+| `npm start`       | Start Metro bundler |
+| `npm run android` | Run Android app     |
+| `npm run ios`     | Run iOS app         |
+| `npm run lint`    | Run ESLint          |
+| `npm test`        | Run Jest tests      |
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
+
+## Troubleshooting
+
+* Ensure your Android/iOS device has biometrics enabled.
+* For iOS, run `pod install` after adding new native dependencies.
+* Clean builds may resolve build issues:
+
+  * **Android**: Delete `android/app/build` and rebuild.
+  * **iOS**: Clean Xcode build folder (`Cmd + Shift + K`) and rebuild.
+
+---
+
+## Learn More
+
+* [React Native Docs](https://reactnative.dev/docs/getting-started)
+* [Redux](https://redux.js.org/)
+* [Redux-Saga](https://redux-saga.js.org/)
+* [React Native Keychain](https://github.com/oblador/react-native-keychain)
+* [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+
+---
+
+## Contact
+
+For support or inquiries, contact **[Your Name / Company]**.
